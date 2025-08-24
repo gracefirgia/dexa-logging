@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { LoggingsModule } from './loggings/loggings.module';
 
 @Module({
   imports: [
@@ -18,9 +19,10 @@ import { SequelizeModule } from '@nestjs/sequelize';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         autoLoadModels: true,
-        synchronize: true, // ❗Turn off in production, use migrations instead
+        synchronize: false, // ❗Turn off in production, use migrations instead
       }),
     }),
+    LoggingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
